@@ -1,25 +1,24 @@
 package br.com.api.admin.service;
 
 import br.com.api.admin.entity.User;
+import br.com.api.admin.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserService {
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<User> findAll(){
-        List<User> users = new ArrayList<>();
+        return userRepository.findAll();
+    }
 
-        User user = new User();
-        user.setId(1L);
-        user.setUsername("Rafael");
-        user.setPassword("123");
-
-        users.add(user);
-        
-        return users;
+    public User save(User user){
+        return userRepository.save(user);
     }
 
 }
