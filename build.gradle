@@ -31,4 +31,5 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('com.h2database:h2')
+	compile('com.google.guava:guava:27.0-jre')
 }

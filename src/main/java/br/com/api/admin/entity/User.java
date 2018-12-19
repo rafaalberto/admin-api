@@ -4,6 +4,7 @@ import br.com.api.admin.enumeration.ProfileEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -21,6 +22,7 @@ public class User implements Serializable {
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
+    @NotBlank(message = "user-1")
     @Column(name = "username", nullable = false, length = 20)
     private String username;
 
@@ -30,8 +32,7 @@ public class User implements Serializable {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "profile", nullable = false, length = 5)
+    @Column(name = "profile", nullable = false, length = 2)
     private ProfileEnum profile;
 
     public Long getId() {
