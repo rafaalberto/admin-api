@@ -22,7 +22,7 @@ public class User implements Serializable {
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
-    @NotBlank(message = "user-1")
+    @NotBlank(message = "error-user-1")
     @Column(name = "username", nullable = false, length = 20)
     private String username;
 
