@@ -3,6 +3,7 @@ package br.com.api.admin.exception;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.http.HttpStatus;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
@@ -22,8 +23,8 @@ public class ErrorResponse {
         return new ErrorResponse(httpStatus.value(), errors);
     }
 
-    static ErrorResponse of(HttpStatus httpStatus, ApiError error) {
-        return of(httpStatus, error);
+    static ErrorResponse of(HttpStatus status, ApiError error){
+        return of(status, Collections.singletonList(error));
     }
 
     @JsonAutoDetect(fieldVisibility = ANY)

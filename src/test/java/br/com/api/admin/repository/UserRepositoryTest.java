@@ -30,7 +30,7 @@ public class UserRepositoryTest {
     public void setUp() {
         user = new User();
         user.setUsername("rafaalberto");
-        user.setPassword("123");
+        user.setPassword("123456");
         user.setName("Rafael");
         user.setProfile(ProfileEnum.ADMIN);
     }
@@ -40,7 +40,7 @@ public class UserRepositoryTest {
         User userSaved = userRepository.save(user);
         assertThat(userSaved.getId()).isNotNull();
         assertThat(userSaved.getUsername()).isEqualTo("rafaalberto");
-        assertThat(userSaved.getPassword()).isEqualTo("123");
+        assertThat(userSaved.getPassword()).isEqualTo("123456");
     }
 
     @Test
