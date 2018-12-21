@@ -14,14 +14,17 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
 
-    public List<User> findAll(){
+    public UserService(@Autowired UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public User save(User user){
+    public User save(User user) {
         verifiyIfUserExist(user);
         user.setPassword(BCryptUtil.encode(user.getPassword()));
         return userRepository.save(user);
@@ -29,9 +32,8 @@ public class UserService {
 
     private void verifiyIfUserExist(final User user) {
         Optional<User> userDB = userRepository.findByUsername(user.getUsername());
-        if(userDB.isPresent()){
+        if (userDB.isPresent()) {
             throw new BusinessException("error-user-8", HttpStatus.BAD_REQUEST);
         }
     }
-
 }

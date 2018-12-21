@@ -18,11 +18,11 @@ import java.util.List;
 @SpringBootTest
 public class UserResourceTest {
 
-    @InjectMocks
-    private UserResource userResource = new UserResource();
-
     @Mock
     private UserService userService;
+
+    @InjectMocks
+    private UserResource userResource = new UserResource(userService);
 
     @Test
     public void shouldReturnStatus200WhenFindAllIsOK(){
