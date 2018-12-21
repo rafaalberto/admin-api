@@ -3,6 +3,7 @@ package br.com.api.admin.service;
 import br.com.api.admin.entity.User;
 import br.com.api.admin.exception.BusinessException;
 import br.com.api.admin.repository.UserRepository;
+import br.com.api.admin.utils.BCryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class UserService {
 
     public User save(User user){
         verifiyIfUserExist(user);
+        user.setPassword(BCryptUtil.encode(user.getPassword()));
         return userRepository.save(user);
     }
 

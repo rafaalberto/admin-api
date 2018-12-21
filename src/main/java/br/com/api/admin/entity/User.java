@@ -2,6 +2,7 @@ package br.com.api.admin.entity;
 
 import br.com.api.admin.enumeration.ProfileEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -59,6 +60,8 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "password")
     public String getPassword() {
         return password;
     }
