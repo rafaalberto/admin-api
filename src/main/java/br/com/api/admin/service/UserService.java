@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -35,7 +36,9 @@ public class UserService {
     }
 
     private void verifiyIfUserExist(final User user) {
-        userRepository.findByUsername(user.getUsername())
-                .orElseThrow(() -> new BusinessException("error-user-8", HttpStatus.BAD_REQUEST));
+        Optional<User> userDB = userRepository.findByUsername(user.getUsername());
+        if(userDB.isPresent() && userDB.get().getId() != user.getId()){
+            throw new BusinessException("error-user-8", HttpStatus.BAD_REQUEST);
+        }
     }
 }

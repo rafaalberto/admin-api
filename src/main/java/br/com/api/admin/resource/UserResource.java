@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class UserResource {
 
     private UserService userService;
 
-    public UserResource(@Autowired UserService userService){
+    public UserResource(@Autowired UserService userService) {
         this.userService = userService;
     }
 
@@ -37,5 +38,12 @@ public class UserResource {
     public ResponseEntity<User> create(@Valid @RequestBody User user) {
         return new ResponseEntity<User>(userService.save(user), HttpStatus.CREATED);
     }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody User user) {
+        user.setId(id);
+        return new ResponseEntity<User>(userService.save(user), HttpStatus.OK);
+    }
+
 
 }
