@@ -52,7 +52,7 @@ public class UserServiceTest {
     }
 
     @Test(expected = BusinessException.class)
-    public void shouldDenyCreationIfUserAlreadyExists(){
+    public void shouldDenySaveIfUserAlreadyExistsAndDifferentId(){
         when(userRepository.findByUsername("rafaalberto")).thenReturn(Optional.of(userInDB));
         User user = new User();
         user.setId(2L);
@@ -60,5 +60,13 @@ public class UserServiceTest {
         userService.save(user);
     }
 
+    @Test
+    public void shouldAllowSaveIfUserAlreadyExistsAndSimilarId(){
+        when(userRepository.findByUsername("rafaalberto")).thenReturn(Optional.of(userInDB));
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("rafaalberto");
+        userService.save(user);
+    }
 
 }
