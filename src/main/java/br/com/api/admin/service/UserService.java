@@ -35,6 +35,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void delete(Long id) {
+        userRepository.delete(findById(id));
+    }
+
     private void verifiyIfUserExist(final User user) {
         Optional<User> userDB = userRepository.findByUsername(user.getUsername());
         if(userDB.isPresent() && userDB.get().getId() != user.getId()){

@@ -45,5 +45,10 @@ public class UserResource {
         return new ResponseEntity<User>(userService.save(user), HttpStatus.OK);
     }
 
+    @DeleteMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
+    }
 
 }
