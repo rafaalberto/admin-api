@@ -1,6 +1,8 @@
 buildscript {
 	ext {
 		springBootVersion = '2.1.1.RELEASE'
+		flywayVersion = '5.2.4'
+		swaggerVersion = '2.9.2'
 	}
 	repositories {
 		mavenCentral()
@@ -33,4 +35,7 @@ dependencies {
 	compile('com.h2database:h2')
 	compile('com.google.guava:guava:27.0-jre')
 	implementation('org.springframework.boot:spring-boot-starter-security')
+	compile("io.springfox:springfox-swagger2:${swaggerVersion}")
+	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+	compile("org.flywaydb:flyway-core:${flywayVersion}")
 }
