@@ -33,7 +33,7 @@ public class UserServiceTest {
         userInDB.setName("Rafael");
         userInDB.setUsername("rafaalberto");
         userInDB.setPassword("123456");
-        userInDB.setProfile(ProfileEnum.ADMIN);
+        userInDB.setProfile(ProfileEnum.ROLE_ADMIN);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class UserServiceTest {
         user.setName("Rafael");
         user.setUsername("rafaalberto");
         user.setPassword("123456");
-        user.setProfile(ProfileEnum.ADMIN);
+        user.setProfile(ProfileEnum.ROLE_ADMIN);
 
         when(userRepository.save(user)).thenReturn(userInDB);
         User userSaved = userService.save(user);

@@ -2,8 +2,8 @@ package br.com.api.admin.enumeration;
 
 public enum ProfileEnum {
 
-    ADMIN("AD", "Administrador"),
-    USER("US", "Usuário");
+    ROLE_ADMIN("AD", "Administrador"),
+    ROLE_USER("US", "Usuário");
 
     private final String code;
     private final String description;

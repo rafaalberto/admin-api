@@ -39,6 +39,11 @@ public class UserService {
         userRepository.delete(findById(id));
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new BusinessException("error-user-9", HttpStatus.BAD_REQUEST));
+    }
+
     private void verifiyIfUserExist(final User user) {
         Optional<User> userDB = userRepository.findByUsername(user.getUsername());
         if(userDB.isPresent() && userDB.get().getId() != user.getId()){

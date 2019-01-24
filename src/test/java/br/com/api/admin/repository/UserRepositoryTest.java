@@ -4,6 +4,7 @@ import br.com.api.admin.entity.User;
 import br.com.api.admin.enumeration.ProfileEnum;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class UserRepositoryTest {
         user.setUsername("rafaalberto");
         user.setPassword("123456");
         user.setName("Rafael");
-        user.setProfile(ProfileEnum.ADMIN);
+        user.setProfile(ProfileEnum.ROLE_ADMIN);
     }
 
     @Test

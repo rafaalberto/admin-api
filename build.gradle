@@ -3,6 +3,7 @@ buildscript {
 		springBootVersion = '2.1.1.RELEASE'
 		flywayVersion = '5.2.4'
 		swaggerVersion = '2.9.2'
+		jjwtVersion = '0.9.0'
 	}
 	repositories {
 		mavenCentral()
@@ -38,4 +39,5 @@ dependencies {
 	compile("io.springfox:springfox-swagger2:${swaggerVersion}")
 	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
 	compile("org.flywaydb:flyway-core:${flywayVersion}")
+	compile("io.jsonwebtoken:jjwt:${jjwtVersion}")
 }
