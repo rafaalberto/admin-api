@@ -32,7 +32,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleNotValidException(MethodArgumentNotValidException exception, Locale locale){
+    public ResponseEntity<ErrorResponse> handleNotValidException(MethodArgumentNotValidException exception, Locale locale) {
         Stream<ObjectError> errors = exception.getBindingResult().getAllErrors().stream();
         List<ApiError> apiErrors = errors
                 .map(ObjectError::getDefaultMessage)
@@ -44,7 +44,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(InvalidFormatException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidFormatException(InvalidFormatException exception, Locale locale){
+    public ResponseEntity<ErrorResponse> handleInvalidFormatException(InvalidFormatException exception, Locale locale) {
         final String errorCode = "generic-1";
         final HttpStatus status = HttpStatus.BAD_REQUEST;
         final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(errorCode, locale, exception.getValue()));
@@ -52,18 +52,18 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException exception, Locale locale){
+    public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException exception, Locale locale) {
         final String errorCode = exception.getCode();
         final HttpStatus status = exception.getHttpStatus();
         final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(exception.getCode(), locale));
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
-    private ApiError toApiError(String code, Locale locale, Object... args){
+    private ApiError toApiError(String code, Locale locale, Object... args) {
         String message;
-        try{
+        try {
             message = apiErrorMessageSource.getMessage(code, args, locale);
-        } catch (NoSuchMessageException e){
+        } catch (NoSuchMessageException e) {
             LOGGER.error("Could not find any message for {} code under {} locale", code, locale);
             message = NO_MESSAGE_AVAILABLE;
         }

@@ -23,12 +23,12 @@ public class ErrorResponse {
         return new ErrorResponse(httpStatus.value(), errors);
     }
 
-    static ErrorResponse of(HttpStatus status, ApiError error){
+    static ErrorResponse of(HttpStatus status, ApiError error) {
         return of(status, Collections.singletonList(error));
     }
 
     @JsonAutoDetect(fieldVisibility = ANY)
-    static class ApiError {
+    public static class ApiError {
 
         private final String code;
         private final String message;

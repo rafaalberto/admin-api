@@ -1,8 +1,11 @@
 package br.com.api.admin.resource;
 
 import br.com.api.admin.entity.User;
+import br.com.api.admin.enumeration.ProfileEnum;
 import br.com.api.admin.exception.BusinessException;
 import br.com.api.admin.service.UserService;
+import br.com.api.admin.utils.JwtUtil;
+import io.jsonwebtoken.Header;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,27 +48,44 @@ public class UserResourceTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Ignore
-    @Test
-    public void shouldReturnValidUserData() throws Exception {
-        User user = new User();
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    private User user;
+
+    @Before
+    public void setUp() {
+        user = new User();
         user.setId(1L);
         user.setUsername("rafaalberto");
+        user.setPassword("123456");
+        user.setProfile(ProfileEnum.ROLE_ADMIN);
+    }
 
+    @Test
+    public void shouldReturnValidUserData() throws Exception {
         BDDMockito.given(userService.findById(Mockito.anyLong())).willReturn(user);
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/1").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/1")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + fetchToken())
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("rafaalberto"));
     }
 
-    @Ignore
     @Test
     public void shouldReturnUserNotFound() throws Exception {
         BDDMockito.given(userService.findById(Mockito.anyLong())).willThrow(new BusinessException("error-user-9", HttpStatus.BAD_REQUEST));
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/1").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/1")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + fetchToken())
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.errors[0].code").value("error-user-9"));
 
+    }
+
+    private String fetchToken() {
+        BDDMockito.given(userService.findByUsername(Mockito.anyString())).willReturn(user);
+        return jwtUtil.generateToken(user.getUsername());
     }
 
 }

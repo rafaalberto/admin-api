@@ -9,7 +9,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 public class ApiErrorConfig {
 
     @Bean
-    public MessageSource apiErrorMessageSource(){
+    public static MessageSource apiErrorMessageSource(){
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:/api-errors");
         messageSource.setDefaultEncoding("UTF-8");

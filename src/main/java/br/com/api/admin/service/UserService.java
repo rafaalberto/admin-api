@@ -46,7 +46,7 @@ public class UserService {
 
     private void verifiyIfUserExist(final User user) {
         Optional<User> userDB = userRepository.findByUsername(user.getUsername());
-        if(userDB.isPresent() && userDB.get().getId() != user.getId()){
+        if (userDB.isPresent() && userDB.get().getId() != user.getId()) {
             throw new BusinessException("error-user-8", HttpStatus.BAD_REQUEST);
         }
     }
