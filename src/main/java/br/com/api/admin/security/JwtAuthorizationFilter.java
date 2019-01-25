@@ -1,7 +1,14 @@
 package br.com.api.admin.security;
 
+import br.com.api.admin.config.ApiErrorConfig;
+import br.com.api.admin.exception.BusinessException;
+import br.com.api.admin.exception.ErrorResponse;
 import br.com.api.admin.utils.JwtUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +21,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Locale;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -36,8 +45,16 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             if (auth != null) {
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
+        }else {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            response.setContentType(MediaType.APPLICATION_JSON.toString());
+            Object json = new ObjectMapper().writeValueAsString(Arrays.asList(
+                    new ErrorResponse.ApiError(String.valueOf(HttpStatus.FORBIDDEN.value()),
+                            ApiErrorConfig.apiErrorMessageSource().getMessage("generic-3", null, Locale.getDefault()))));
+
+            response.getWriter().append(json.toString());
         }
-        chain.doFilter(request, response);
+        //chain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(String token) {

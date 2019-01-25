@@ -7,10 +7,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.Locale;
@@ -58,6 +61,16 @@ public class ApiExceptionHandler {
         final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(exception.getCode(), locale));
         return ResponseEntity.badRequest().body(errorResponse);
     }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException exception, Locale locale) {
+        final String errorCode = "generic-2";
+        final HttpStatus status = HttpStatus.UNAUTHORIZED;
+        final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(errorCode, locale, exception.getMessage()));
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+
 
     private ApiError toApiError(String code, Locale locale, Object... args) {
         String message;
