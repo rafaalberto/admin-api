@@ -62,16 +62,6 @@ public class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException exception, Locale locale) {
-        final String errorCode = "generic-2";
-        final HttpStatus status = HttpStatus.UNAUTHORIZED;
-        final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(errorCode, locale, exception.getMessage()));
-        return ResponseEntity.badRequest().body(errorResponse);
-    }
-
-
-
     private ApiError toApiError(String code, Locale locale, Object... args) {
         String message;
         try {

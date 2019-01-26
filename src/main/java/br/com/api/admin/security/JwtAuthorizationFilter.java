@@ -45,16 +45,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             if (auth != null) {
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        }else {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-            response.setContentType(MediaType.APPLICATION_JSON.toString());
-            Object json = new ObjectMapper().writeValueAsString(Arrays.asList(
-                    new ErrorResponse.ApiError(String.valueOf(HttpStatus.FORBIDDEN.value()),
-                            ApiErrorConfig.apiErrorMessageSource().getMessage("generic-3", null, Locale.getDefault()))));
-
-            response.getWriter().append(json.toString());
         }
-        //chain.doFilter(request, response);
+        chain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(String token) {
