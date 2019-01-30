@@ -17,7 +17,7 @@ public class UserSpringSecurity implements UserDetails {
     public UserSpringSecurity(String username, String password, ProfileEnum profile) {
         this.username = username;
         this.password = password;
-        this.authorities = Arrays.asList(new SimpleGrantedAuthority(profile.getDescription()));
+        this.authorities = Arrays.asList(new SimpleGrantedAuthority(profile.toString()));
     }
 
     @Override
