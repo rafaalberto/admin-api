@@ -4,16 +4,16 @@ import br.com.api.admin.entity.User;
 import br.com.api.admin.enumeration.ProfileEnum;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigInteger;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,8 +47,8 @@ public class UserRepositoryTest {
     @Test
     public void findAll() {
         userRepository.save(user);
-        List<User> users = userRepository.findAll();
-        assertThat(users.size()).isEqualTo(BigInteger.ONE.intValue());
+        Page<User> users = userRepository.findAll(PageRequest.of(0, 5));
+        assertThat(users.getNumberOfElements()).isEqualTo(BigInteger.ONE.intValue());
     }
 
     @After

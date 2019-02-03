@@ -3,13 +3,14 @@ package br.com.api.admin.resource;
 import br.com.api.admin.entity.User;
 import br.com.api.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 public class UserResource {
@@ -21,8 +22,8 @@ public class UserResource {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> findAll() {
-        List<User> users = userService.findAll();
+    public ResponseEntity<Page<User>> findAll(Pageable pageable) {
+        Page<User> users = userService.findAll(pageable);
         return ResponseEntity.ok(users);
     }
 
