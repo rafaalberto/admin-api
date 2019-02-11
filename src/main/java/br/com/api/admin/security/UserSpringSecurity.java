@@ -1,6 +1,7 @@
 package br.com.api.admin.security;
 
 import br.com.api.admin.enumeration.ProfileEnum;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 
+@Getter
 public class UserSpringSecurity implements UserDetails {
 
     private String username;
@@ -23,16 +25,6 @@ public class UserSpringSecurity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override

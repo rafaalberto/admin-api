@@ -5,6 +5,7 @@ import br.com.api.admin.entity.User;
 import br.com.api.admin.utils.JwtUtil;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -68,16 +69,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.getWriter().append(json.toString());
     }
 
+    @RequiredArgsConstructor
     @JsonAutoDetect(fieldVisibility = ANY)
     public static class UserResponse {
 
         private final String username;
         private final String token;
-
-        public UserResponse(String username, String token) {
-            this.username = username;
-            this.token = token;
-        }
     }
 
 }

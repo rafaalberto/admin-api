@@ -3,15 +3,18 @@ package br.com.api.admin.entity;
 import br.com.api.admin.enumeration.ProfileEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = User.TABLE_NAME)
 public class User implements Serializable {
 
@@ -44,62 +47,9 @@ public class User implements Serializable {
     @Column(name = "profile", nullable = false, length = 2)
     private ProfileEnum profile;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @JsonIgnore
     @JsonProperty(value = "password")
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ProfileEnum getProfile() {
-        return profile;
-    }
-
-    public void setProfile(ProfileEnum profile) {
-        this.profile = profile;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(name, user.name) &&
-                profile == user.profile;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, name, profile);
     }
 }
