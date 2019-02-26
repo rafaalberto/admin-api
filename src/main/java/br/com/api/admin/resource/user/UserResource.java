@@ -1,4 +1,4 @@
-package br.com.api.admin.resource;
+package br.com.api.admin.resource.user;
 
 import br.com.api.admin.entity.User;
 import br.com.api.admin.service.UserService;

@@ -24,7 +24,7 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
     }
 
-    public boolean isTokenValido(String token){
+    public boolean isValidToken(String token){
         Claims claims = getClaims(token);
         if (claims != null) {
             String username = claims.getSubject();
