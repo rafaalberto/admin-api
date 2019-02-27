@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public User save(User user) {
-        verifiyIfUserExist(user);
+        verifyIfUserExist(user);
         user.setPassword(BCryptUtil.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -45,7 +45,7 @@ public class UserService {
                 .orElseThrow(() -> new BusinessException("error-user-9", HttpStatus.BAD_REQUEST));
     }
 
-    private void verifiyIfUserExist(final User user) {
+    private void verifyIfUserExist(final User user) {
         Optional<User> userDB = userRepository.findByUsername(user.getUsername());
         if (userDB.isPresent() && userDB.get().getId() != user.getId()) {
             throw new BusinessException("error-user-8", HttpStatus.BAD_REQUEST);
