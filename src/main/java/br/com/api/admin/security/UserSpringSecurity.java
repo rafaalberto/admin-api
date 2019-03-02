@@ -14,11 +14,13 @@ public class UserSpringSecurity implements UserDetails {
 
     private String username;
     private String password;
+    private String name;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserSpringSecurity(String username, String password, ProfileEnum profile) {
+    public UserSpringSecurity(String username, String password, String name, ProfileEnum profile) {
         this.username = username;
         this.password = password;
+        this.name = name;
         this.authorities = Arrays.asList(new SimpleGrantedAuthority(profile.toString()));
     }
 
