@@ -26,4 +26,4 @@
 /.nb-gradle/
 
 .terraform
-admin-api_key*
+awsadmin_key*
