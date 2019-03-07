@@ -5,6 +5,7 @@ buildscript {
 		swaggerVersion = '2.9.2'
 		jjwtVersion = '0.9.0'
 		springSecurityTest = '5.1.3.RELEASE'
+		commonsLangVersion = '3.8.1'
 	}
 	repositories {
 		mavenCentral()
@@ -42,5 +43,6 @@ dependencies {
 	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
 	compile("org.flywaydb:flyway-core:${flywayVersion}")
 	compile("io.jsonwebtoken:jjwt:${jjwtVersion}")
+	compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
 	testImplementation("org.springframework.security:spring-security-test:${springSecurityTest}")
 }

@@ -1,10 +1,11 @@
 package br.com.api.admin.resource.user;
 
 import br.com.api.admin.entity.User;
+import br.com.api.admin.enumeration.ProfileEnum;
 import br.com.api.admin.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,8 +24,22 @@ public class UserResource {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<Page<User>> findAll(Pageable pageable) {
-        Page<User> users = userService.findAll(pageable);
+    public ResponseEntity<Page<User>> findAll(
+            @RequestParam(value = "page", required = false) final Integer page,
+            @RequestParam(value = "size", required = false) final Integer size,
+            @RequestParam(value = "username", required = false) final String username,
+            @RequestParam(value = "name", required = false) final String name,
+            @RequestParam(value = "profile", required = false) final String profile) {
+
+        final UserRequest userRequest = UserRequest.Builder.builder()
+                .withPage(page)
+                .withSize(size)
+                .withUsername(username)
+                .withName(name)
+                .withProfile(StringUtils.isNotBlank(profile) ? ProfileEnum.valueOf(profile) : null)
+                .build();
+
+        Page<User> users = userService.findAll(userRequest);
         return ResponseEntity.ok(users);
     }
 

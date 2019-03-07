@@ -3,6 +3,7 @@ package br.com.api.admin.service;
 import br.com.api.admin.entity.User;
 import br.com.api.admin.enumeration.ProfileEnum;
 import br.com.api.admin.exception.BusinessException;
+import br.com.api.admin.repository.UserCustomizedQueries;
 import br.com.api.admin.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +25,13 @@ public class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private UserCustomizedQueries userCustomizedQueries;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        userService = new UserService(userRepository);
+        userService = new UserService(userRepository, userCustomizedQueries);
         userInDB = new User();
         userInDB.setId(1L);
         userInDB.setName("Rafael");
