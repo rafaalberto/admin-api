@@ -4,7 +4,7 @@ The App works saving and listing users registration. <br/>
 The main technologies are: <br/>
 
 - Spring Boot (Backend app)
-- Java 8+ features (lambdas, filter, streams)
+- Java 8+ features (lambdas, filters, streams)
 - REST concepts
 - PostgreSQL database
 - JPA
